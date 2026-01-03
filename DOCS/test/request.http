@@ -1,0 +1,22 @@
+### Test: POST /api/test without x-api-key (should fail)
+POST http://localhost:3000/api/test
+Content-Type: application/json
+
+{
+  "foo": "bar"
+}
+
+### Test: POST /api/test with x-api-key (should succeed and return correlationId)
+POST http://localhost:3000/api/test
+Content-Type: application/json
+x-api-key: test-key
+
+{
+  "foo": "bar"
+}
+
+### Test: GET /api/return-all (should succeed, correlationId present, x-api-key not required)
+GET http://localhost:3000/api/return-all
+
+### Test: GET /api/return-all-without-middleware (should succeed, no correlationId injected)
+GET http://localhost:3000/api/return-all-without-middleware

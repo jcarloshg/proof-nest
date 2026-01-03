@@ -6,6 +6,7 @@ import { NotificationModule } from './application/notification/notification.modu
 
 import { UseSampleModule } from './application/use-sample/use-sample.module';
 import { SampleModule } from './application/sample/sample.module';
+import { RequestModule } from './application/request/request.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SampleModule } from './application/sample/sample.module';
       endpoint: 'https://api.example.com',
     }),
     UseSampleModule,
+    RequestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
