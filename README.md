@@ -96,3 +96,43 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+# Most important topics on Nestjs
+
+As a system designer, I view **NestJS** as the standard for structured, scalable Node.js backends. Its strength lies in enforcing an architecture (inspired by Angular) that prevents "Spaghetti Code" in large teams.
+
+Here are the most critical and widely used topics you must master:
+
+### 1. The Core Architecture (DI & Modules)
+
+This is the foundation. If you don't get this, you aren't really using NestJS.
+
+- **Dependency Injection (DI) & Inversion of Control (IoC):** How NestJS manages class instances for you. Mastering providers, `useClass`, `useFactory` (for dynamic providers), and handling circular dependencies.
+- **Modules (`@Module`):** The structural units of the app. Understanding `imports`, `exports`, and the difference between Feature Modules, Global Modules (`@Global()`), and Dynamic Modules (crucial for building reusable libraries like a `DatabaseModule`).
+
+### 2. The Request Lifecycle (The "Pipeline")
+
+Understanding the _exact_ order of operations when a request hits your server is the most common interview topic and debugging hurdle.
+
+- **Middleware:** Runs first (like Express middleware). Good for logging or raw request modification.
+- **Guards:** Authentication and Authorization (RBAC). They determine if the request _can_ proceed.
+- **Interceptors:** Powerful wrappers that can transform the **response** or bind extra logic before/after the handler (e.g., standardizing API responses, caching, logging execution time).
+- **Pipes:** Validation and Transformation. Using `class-validator` and `class-transformer` to ensure data is correct _before_ it reaches your controller.
+- **Exception Filters:** Centralized error handling. Instead of `try/catch` everywhere, you define a global filter that catches exceptions and formats the JSON response.
+
+### 3. Data Abstraction & Database
+
+- **TypeORM or Prisma Integration:** NestJS is agnostic, but the integration with these ORMs is deep.
+- **Repository Pattern:** Using the specific Repository tokens to decouple your business logic from the database driver. This is essential for unit testing.
+
+### 4. Enterprise Patterns
+
+- **Microservices:** Using `@nestjs/microservices` to switch from HTTP to TCP, Redis, Kafka, or gRPC.
+- **Configuration (`@nestjs/config`):** Loading `.env` files and validating environment variables using Joi schema validation (so the app crashes at startup if a key is missing).
+- **Queues (Bull/BullMQ):** Offloading heavy tasks (like sending emails or processing video) to background workers.
+- **Testing:** NestJS has a built-in testing container. Mastering `Test.createTestingModule` for integration tests is a key skill.
+
+### 5. Advanced Techniques
+
+- **Custom Decorators:** creating `@User()` to extract the user from the request object, or `@Roles('admin')` for metadata.
+- **CQRS (Command Query Responsibility Segregation):** For very complex domains, separating Read and Write models using the `@nestjs/cqrs` module.
