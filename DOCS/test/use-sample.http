@@ -1,0 +1,6 @@
+### Test UseSample GET endpoint
+
+GET http://localhost:3000/use-sample/config
+Accept: application/json
+
+###
