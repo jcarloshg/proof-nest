@@ -1,0 +1,22 @@
+# ✅ Test cases for Logging (Request Enrichment) Middleware
+
+### 1. Calls /test and checks the enriched property
+GET http://localhost:3000/test
+User-Agent: NestJS-HTTP-Test
+Accept: application/json
+
+### 2. Calls /health and confirms middleware is NOT called (x-request-id missing in logs)
+GET http://localhost:3000/health
+User-Agent: NestJS-HTTP-Test
+Accept: application/json
+
+### 3. Calls a random route to show generic middleware application
+GET http://localhost:3000/anything
+User-Agent: NestJS-HTTP-Test
+Accept: application/json
+
+#
+# Expected:
+# - /test: Should return `xRequestId` in the response body and see logs in server output
+# - /health: Should NOT log via middleware (see server console)
+# - /anything: Should log and enrich request (if a controller exists; else 404 with logs shown)

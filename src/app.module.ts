@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { LoggingModule } from './application/middleware/logging.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './application/auth/auth.module';
@@ -18,6 +19,7 @@ import { DiscoveryModule } from './application/discovery/discovery.module';
   imports: [
     AuthModule,
     NotificationModule,
+    LoggingModule,
     SampleModule.forRoot({
       apiKey: 'my-api-key',
       endpoint: 'https://api.example.com',
