@@ -1,0 +1,27 @@
+### GET /discovery/status
+GET http://localhost:3000/discovery/status
+
+### POST /discovery/data
+POST http://localhost:3000/discovery/data
+Content-Type: application/json
+
+{
+  "hello": "world"
+}
+
+### GET /discovery/1234?verbose=yes
+GET http://localhost:3000/discovery/test-params/1234?verbose=yes
+
+### GET /discovery/guarded (tests guard and custom @User)
+GET http://localhost:3000/discovery/guarded
+
+### GET /discovery/intercepted (tests interceptor logic)
+GET http://localhost:3000/discovery/intercepted
+
+### POST /discovery/validate (tests pipe logic)
+POST http://localhost:3000/discovery/validate
+Content-Type: application/json
+
+{
+  "original": 42
+}

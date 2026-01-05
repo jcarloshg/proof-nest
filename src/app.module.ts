@@ -12,6 +12,7 @@ import { InterceptorsModule } from './application/interceptors/interceptors.modu
 import { PipesExampleModule } from './application/pipes-example/pipes-example.module';
 
 import { ExceptionsModule } from './application/filters/exceptions.module';
+import { DiscoveryModule } from './application/discovery/discovery.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ExceptionsModule } from './application/filters/exceptions.module';
     InterceptorsModule,
     PipesExampleModule,
     ExceptionsModule,
+    DiscoveryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
