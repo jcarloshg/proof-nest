@@ -8,6 +8,8 @@ import { UseSampleModule } from './application/use-sample/use-sample.module';
 import { SampleModule } from './application/sample/sample.module';
 import { RequestModule } from './application/request/request.module';
 import { AccessControlModule } from './application/guards/access-control.module';
+import { InterceptorsModule } from './application/interceptors/interceptors.module';
+import { PipesExampleModule } from './application/pipes-example/pipes-example.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { AccessControlModule } from './application/guards/access-control.module'
     UseSampleModule,
     RequestModule,
     AccessControlModule,
+    InterceptorsModule,
+    PipesExampleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

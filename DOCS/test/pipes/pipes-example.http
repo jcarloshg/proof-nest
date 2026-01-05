@@ -1,0 +1,59 @@
+# 1. Valid user creation
+POST http://localhost:3000/pipes-example/create
+Content-Type: application/json
+
+{
+  "email": "testuser@example.com",
+  "age": 25,
+  "biography": "I love NestJS!"
+}
+
+###
+
+# 2. Invalid age (under 18)
+POST http://localhost:3000/pipes-example/create
+Content-Type: application/json
+
+{
+  "email": "testuser@example.com",
+  "age": 16,
+  "biography": "Too young!"
+}
+
+###
+
+# 3. Invalid email format
+POST http://localhost:3000/pipes-example/create
+Content-Type: application/json
+
+{
+  "email": "not-an-email",
+  "age": 22
+}
+
+###
+
+# 4. Extra field (should 400 with forbidNonWhitelisted=true)
+POST http://localhost:3000/pipes-example/create
+Content-Type: application/json
+
+{
+  "email": "extra@example.com",
+  "age": 22,
+  "unknownField": "nope"
+}
+
+###
+
+# 5. GET file-size with valid size
+GET http://localhost:3000/pipes-example/file-size?size=1048576
+
+###
+
+# 6. GET file-size with invalid (non-numeric)
+GET http://localhost:3000/pipes-example/file-size?size=abc
+
+###
+
+# 7. GET file-size with too large (>10MB)
+GET http://localhost:3000/pipes-example/file-size?size=10485760

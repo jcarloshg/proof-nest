@@ -1,0 +1,19 @@
+### Test: Interceptors Response Envelope & Logging
+# This request hits the /demo/greet endpoint, demonstrating:
+# - Response is wrapped in an envelope (transform.interceptor)
+# - Execution time & method/url logged to console (timeout.interceptor)
+
+GET http://localhost:3000/demo/greet
+Accept: application/json
+
+# Expected response (200):
+# {
+#   "data": "Hello from Interceptors!",
+#   "meta": {
+#      "timestamp": "2024-..."
+#   }
+# }
+#
+# In the console, expect to see:
+# [Request] GET /demo/greet
+# [ResponseTime] GET /demo/greet: XXms
