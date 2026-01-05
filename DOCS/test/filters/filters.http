@@ -1,0 +1,7 @@
+# Negative test: intentionally trigger exception filtering
+GET http://localhost:3000/filters/error
+
+###
+
+# Example (if more endpoints in FiltersController):
+# GET http://localhost:3000/filters/another-path

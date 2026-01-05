@@ -11,6 +11,8 @@ import { AccessControlModule } from './application/guards/access-control.module'
 import { InterceptorsModule } from './application/interceptors/interceptors.module';
 import { PipesExampleModule } from './application/pipes-example/pipes-example.module';
 
+import { ExceptionsModule } from './application/filters/exceptions.module';
+
 @Module({
   imports: [
     AuthModule,
@@ -24,6 +26,7 @@ import { PipesExampleModule } from './application/pipes-example/pipes-example.mo
     AccessControlModule,
     InterceptorsModule,
     PipesExampleModule,
+    ExceptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
