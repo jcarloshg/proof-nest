@@ -1,7 +1,5 @@
 # Proof NestJS Backend
 
----
-
 ## Project Overview
 
 **Tech Stack:**
@@ -13,16 +11,12 @@
 **Purpose:**  
 This is a modular, extensible backend API server built with NestJS. Its core is designed for best practices in error handling, validation, modularity, and ease of integration. Out-of-the-box API modules demo authentication, request lifecycle techniques, custom validation/example pipes, global exception filtering, and more.
 
----
-
 ## Architecture
 
 **Pattern:**
 
 > Standard NestJS Modular, with DDD/Hexagonal influences  
 > Every business concern is encapsulated as a module, with clear boundaries and dependency injection. Modules expose controllers for routing, services/providers for logic, and (optionally) custom pipes, guards, and decorators.
-
----
 
 ## Configuration & Setup
 
@@ -48,11 +42,7 @@ This is a modular, extensible backend API server built with NestJS. Its core is 
 - **No `.env` found**; no required environment variables unless additional configuration is supplied.
 - All configuration (keys, endpoints, etc.) are hardcoded or handled inside modules.
 
----
-
 ## Modules
-
----
 
 ### 1. `auth` — Authentication Module
 
@@ -74,8 +64,6 @@ Handles user registration and login (in-memory for demonstration).
 
 - No external modules used.
 - Maintains its own user state in-memory.
-
----
 
 ### 2. `discovery` — Decorator & Lifecycle Reference
 
@@ -102,8 +90,6 @@ Comprehensive showcase of essential NestJS decorators, request lifecycle, DI, an
 
 - None, but serves as a reference for advanced usage (custom guard/interceptor/pipe inside file).
 
----
-
 ### 3. `notification` — Notification Service Module
 
 **Purpose:**  
@@ -124,8 +110,6 @@ Handles multi-channel notifications (Email, SMS, Logger).
 - May use providers/configs for channel selection.
 - Possibly imports shared config providers.
 
----
-
 ### 4. `filters` — Global Exception Handling
 
 **Purpose:**  
@@ -145,8 +129,6 @@ Implements centralized error formatting via a global HTTP error filter (using `A
 **Dependencies:**
 
 - Registered via `APP_FILTER` (supports DI in error filter).
-
----
 
 ### 5. `pipes-example` — Custom Validation & Transformation
 
@@ -170,8 +152,6 @@ Demonstrates DTO-based validation and a custom `PipeTransform` for file sizes.
 
 - Uses `class-validator` for DTO validation.
 
----
-
 ### 6. `interceptors` — Response/Timeout Interceptors
 
 **Purpose:**  
@@ -186,8 +166,6 @@ Showcases custom response transformation and timeout logic.
 **Endpoints:**
 
 - Refer to controller for endpoints that demonstrate interceptors.
-
----
 
 ### 7. `guards` — Role-Based Access Control
 
@@ -206,8 +184,6 @@ Implements `@Roles()` decorator, guards, and role-based access to endpoints.
 
 - See controller for endpoints requiring certain roles.
 
----
-
 ### 8. `request` — Request Context & Middleware
 
 **Purpose:**  
@@ -224,8 +200,6 @@ Demonstrates custom request-level logic, middleware usage for headers and correl
 
 - Demonstrates custom context and/or header logic.
 
----
-
 ### 9. `sample` & `use-sample` — Dynamic Module/Options Pattern
 
 **Purpose:**  
@@ -240,8 +214,6 @@ Shows off NestJS dynamic module pattern, passing options/config during import.
 **Endpoints:**
 
 - Varies per demo.
-
----
 
 ## Dependency/Module Diagram
 
@@ -261,12 +233,8 @@ AppModule
 
 _All feature modules self-register and expose clean boundaries, following standard NestJS modularity._
 
----
-
 ## References
 
 - [NestJS Core Docs](https://docs.nestjs.com/)
 - For advanced decorators, guards, pipes: see `/src/application/discovery/`
 - **Testing:** See `/DOCS/test/{module}/` for .http test scripts for all main modules.
-
----
