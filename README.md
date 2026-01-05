@@ -1,98 +1,272 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Proof NestJS Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Project Overview
 
-## Description
+**Tech Stack:**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Framework:** [NestJS](https://nestjs.com/) (v11)
+- **Language:** TypeScript 5.x
+- **Build Tools:** Nest CLI, Prettier, ESLint, Jest
 
-## Project setup
+**Purpose:**  
+This is a modular, extensible backend API server built with NestJS. Its core is designed for best practices in error handling, validation, modularity, and ease of integration. Out-of-the-box API modules demo authentication, request lifecycle techniques, custom validation/example pipes, global exception filtering, and more.
 
-```bash
-$ npm install
+---
+
+## Architecture
+
+**Pattern:**
+
+> Standard NestJS Modular, with DDD/Hexagonal influences  
+> Every business concern is encapsulated as a module, with clear boundaries and dependency injection. Modules expose controllers for routing, services/providers for logic, and (optionally) custom pipes, guards, and decorators.
+
+---
+
+## Configuration & Setup
+
+### Scripts (`package.json`)
+
+| Script        | Description                      |
+| ------------- | -------------------------------- |
+| `start`       | Run the NestJS app               |
+| `start:dev`   | Run app in dev mode (watch)      |
+| `start:debug` | Debug mode with watch            |
+| `start:prod`  | Run JS from build output         |
+| `build`       | Compile TypeScript to JavaScript |
+| `format`      | Format code with Prettier        |
+| `lint`        | Lint and auto-fix                |
+| `test`        | Run all unit tests               |
+| `test:watch`  | Test runner in watch mode        |
+| `test:cov`    | Collect test coverage            |
+| `test:debug`  | Debug tests                      |
+| `test:e2e`    | Run end-to-end tests             |
+
+### Environment Variables
+
+- **No `.env` found**; no required environment variables unless additional configuration is supplied.
+- All configuration (keys, endpoints, etc.) are hardcoded or handled inside modules.
+
+---
+
+## Modules
+
+---
+
+### 1. `auth` — Authentication Module
+
+**Purpose:**  
+Handles user registration and login (in-memory for demonstration).
+
+**Key Components:**
+
+- **Controller:** `AuthController`
+- **Service:** `AuthService`
+
+**Endpoints:**  
+| Method | Route | Purpose |
+|--------|----------------|---------------|
+| POST | `/auth/sign-up`| Register user |
+| POST | `/auth/login` | Login user |
+
+**Dependencies:**
+
+- No external modules used.
+- Maintains its own user state in-memory.
+
+---
+
+### 2. `discovery` — Decorator & Lifecycle Reference
+
+**Purpose:**  
+Comprehensive showcase of essential NestJS decorators, request lifecycle, DI, and custom extensions.
+
+**Key Components:**
+
+- **Controller:** `DiscoveryController`
+- **Service:** `DiscoveryService`
+- **Custom Decorator:** `User` (`decorators/user.decorator.ts`)
+
+**Endpoints:**
+| Method | Route | Description |
+|--------|--------------------------|----------------------------------------------------------------------------|
+| GET | `/discovery/status` | Service status; DI basics demo |
+| POST | `/discovery/data` | Shows `@Body`, `@Headers`, `@Ip`, `@HttpCode`, `@Header` |
+| GET | `/discovery/test-params/:id` | Path and query param demo |
+| GET | `/discovery/guarded` | Runs a demo guard & shows usage of custom `@User()` decorator |
+| GET | `/discovery/intercepted` | Runs a demo interceptor on the route |
+| POST | `/discovery/validate` | Shows custom/inline pipe transformation |
+
+**Dependencies:**
+
+- None, but serves as a reference for advanced usage (custom guard/interceptor/pipe inside file).
+
+---
+
+### 3. `notification` — Notification Service Module
+
+**Purpose:**  
+Handles multi-channel notifications (Email, SMS, Logger).
+
+**Key Components:**
+
+- **Controller:** `NotificationController`
+- **Services:** `NotificationService`, `EmailNotificationService`, `SmsNotificationService`, `LoggerService`
+- **Providers:** Notification config, DTOs
+
+**Endpoints (inferred):**
+
+- Expected: send notification via various channels.
+
+**Dependencies:**
+
+- May use providers/configs for channel selection.
+- Possibly imports shared config providers.
+
+---
+
+### 4. `filters` — Global Exception Handling
+
+**Purpose:**  
+Implements centralized error formatting via a global HTTP error filter (using `APP_FILTER` token).
+
+**Key Components:**
+
+- **Controller:** `FiltersController`
+- **Provider:** `HttpExceptionFilter`
+- **Module:** `ExceptionsModule`
+
+**Endpoints:**  
+| Method | Route | Purpose |
+|--------|-------------------|----------------|
+| GET | `/filters/error` | Forces error for filter demo |
+
+**Dependencies:**
+
+- Registered via `APP_FILTER` (supports DI in error filter).
+
+---
+
+### 5. `pipes-example` — Custom Validation & Transformation
+
+**Purpose:**  
+Demonstrates DTO-based validation and a custom `PipeTransform` for file sizes.
+
+**Key Components:**
+
+- **Controller:** `PipesExampleController`
+- **Pipe:** `FileSizePipe`
+- **DTO:** `CreateUserDto`
+- **Module:** `PipesExampleModule`
+
+**Endpoints:**  
+| Method | Route | Description |
+|--------|-----------------------------|-----------------------|
+| POST | `/pipes-example/create` | Validates request body|
+| GET | `/pipes-example/file-size` | Pipe validates query |
+
+**Dependencies:**
+
+- Uses `class-validator` for DTO validation.
+
+---
+
+### 6. `interceptors` — Response/Timeout Interceptors
+
+**Purpose:**  
+Showcases custom response transformation and timeout logic.
+
+**Key Components:**
+
+- **Controller:** `DemoController`
+- **Interceptors:** `TimeoutInterceptor`, `TransformInterceptor`
+- **Module:** `InterceptorsModule`
+
+**Endpoints:**
+
+- Refer to controller for endpoints that demonstrate interceptors.
+
+---
+
+### 7. `guards` — Role-Based Access Control
+
+**Purpose:**  
+Implements `@Roles()` decorator, guards, and role-based access to endpoints.
+
+**Key Components:**
+
+- **Controller:** `GuardsController`
+- **Guards:** `RolesGuard`
+- **Decorators:** `Roles`
+- **Middlewares:** `MockUserMiddleware`
+- **Module:** `AccessControlModule`
+
+**Endpoints:**
+
+- See controller for endpoints requiring certain roles.
+
+---
+
+### 8. `request` — Request Context & Middleware
+
+**Purpose:**  
+Demonstrates custom request-level logic, middleware usage for headers and correlation IDs.
+
+**Key Components:**
+
+- **Controller:** `RequestController`
+- **Middlewares:** `HeaderValidationMiddleware`, `CorrelationIdMiddleware`
+- **Service:** `RequestService`
+- **Module:** `RequestModule`
+
+**Endpoints:**
+
+- Demonstrates custom context and/or header logic.
+
+---
+
+### 9. `sample` & `use-sample` — Dynamic Module/Options Pattern
+
+**Purpose:**  
+Shows off NestJS dynamic module pattern, passing options/config during import.
+
+**Key Components:**
+
+- **Service:** `SampleService`, `UseSampleService`
+- **Module:** `SampleModule`, `UseSampleModule`
+- **Interface:** `SampleModuleOptions`
+
+**Endpoints:**
+
+- Varies per demo.
+
+---
+
+## Dependency/Module Diagram
+
+```
+AppModule
+ ├── AuthModule
+ ├── DiscoveryModule
+ ├── NotificationModule
+ ├── Filters (ExceptionsModule)
+ ├── PipesExampleModule
+ ├── InterceptorsModule
+ ├── Guards (AccessControlModule)
+ ├── RequestModule
+ ├── SampleModule (dynamic)
+ └── UseSampleModule
 ```
 
-## Compile and run the project
+_All feature modules self-register and expose clean boundaries, following standard NestJS modularity._
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## References
 
-# production mode
-$ npm run start:prod
-```
+- [NestJS Core Docs](https://docs.nestjs.com/)
+- For advanced decorators, guards, pipes: see `/src/application/discovery/`
+- **Testing:** See `/DOCS/test/{module}/` for .http test scripts for all main modules.
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
