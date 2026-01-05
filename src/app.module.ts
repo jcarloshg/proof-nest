@@ -7,6 +7,7 @@ import { NotificationModule } from './application/notification/notification.modu
 import { UseSampleModule } from './application/use-sample/use-sample.module';
 import { SampleModule } from './application/sample/sample.module';
 import { RequestModule } from './application/request/request.module';
+import { AccessControlModule } from './application/guards/access-control.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RequestModule } from './application/request/request.module';
     }),
     UseSampleModule,
     RequestModule,
+    AccessControlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

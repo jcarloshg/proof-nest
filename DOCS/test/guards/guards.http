@@ -1,0 +1,13 @@
+### Test public endpoint (should always succeed)
+GET http://localhost:3000/public
+Accept: application/json
+
+### Test admin endpoint as non-admin (should fail with 403)
+GET http://localhost:3000/admin
+Accept: application/json
+
+# ---
+# To test as admin, edit src/application/guards/middleware/mock-user.middleware.ts
+# Change: req.user = { roles: ['customer'] }
+#   to:   req.user = { roles: ['admin'] }
+# Then re-run the server and the /admin endpoint will return success.
